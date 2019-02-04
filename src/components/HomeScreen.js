@@ -25,7 +25,6 @@ class HomeScreen extends Component {
     }
 
     render(){
-        
         return( 
             <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
              {this.props.loading? 
@@ -34,7 +33,7 @@ class HomeScreen extends Component {
             </View> 
                 :
                 <FlatList
-                    data={this.props.appData}
+                    data={this.props.data}
                     renderItem ={this.renderItem}
                     keyExtractor={(item, index) => index.toString()}
                 />
