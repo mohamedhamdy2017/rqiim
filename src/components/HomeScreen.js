@@ -6,12 +6,7 @@ import {Card, CardItem, Body} from 'native-base'
 
 
 class HomeScreen extends Component {
-    state ={
-        Fetchdata: []
-    }
-    componentDidMount(){
-        this.props.fetchingData().then(results => this.setState({Fetchdata: results}))
-    }
+   
     renderItem = ({item}) => {
         return(
           <Card >
