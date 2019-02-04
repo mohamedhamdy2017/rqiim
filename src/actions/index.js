@@ -3,19 +3,23 @@ import { IS_FETCHING, FETCHING_SUCCESS, FETCHING_FAILED } from './type'
 
 export const fetchingData = () => {
     return async (dispatch) => {
-            dispatch({type: FETCHING_SUCCESS})
+            dispatch({type: IS_FETCHING})
     const response = await fetch('https://young-caverns-57308.herokuapp.com/')
     const result = await response.json()
-    //console.log(result)
-    return {result}
+    if(result) {
+        dispatch({type: FETCHING_SUCCESS})
+        return {result}
+    }else {
+        console.log('failed')
+    }
     
-}
+   }
 }
 
-//  const fetchingSuccess = (dispatch, appData) => {
+//  const fetchingSuccess = (dispatch, result) => {
 //     dispatch ({
 //         type: FETCHING_SUCCESS,
-//         payload: appData
+//         payload: result
 //     })
 // }
 

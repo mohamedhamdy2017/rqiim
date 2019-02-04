@@ -6,14 +6,17 @@ import {Card, CardItem, Body} from 'native-base'
 
 
 class HomeScreen extends Component {
+    componentDidMount(){
+        this.props.fetchingData()
+    }
    
     renderItem = ({item}) => {
+        console.log(item)
         return(
-          <Card >
+          <Card style={{flex:1 , width: '80%'}}>
             <CardItem>
               <Body>
-                <Text>{this.props.data.title}</Text>
-                <Text>Like it? Keep Scrolling...</Text>
+                <Text>{item.title}</Text>
               </Body>
             </CardItem>
           </Card>
@@ -22,15 +25,21 @@ class HomeScreen extends Component {
     }
 
     render(){
+        
         return( 
             <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
-             {this.props.loading? <View style={{flex:1,alignItems:'center',justifyContent:'center'}}><ActivityIndicator size="large" color={'blue'} /></View> :
+             {this.props.loading? 
+             <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
+                <ActivityIndicator size="large" color={'blue'} />
+            </View> 
+                :
                 <FlatList
-                    data={this.props.fetchingData}
+                    data={this.props.appData}
                     renderItem ={this.renderItem}
                     keyExtractor={(item, index) => index.toString()}
                 />
              }
+             
             </View>
         )
     }
