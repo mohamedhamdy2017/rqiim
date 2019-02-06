@@ -14,6 +14,10 @@ class HomeScreen extends Component {
         this.props.fetchingData()
     }
 
+    onLikePressed(item){
+        this.props.addToFavoriteList(item)
+    }
+
 
     renderItem = ({ item }) => {
         return (
@@ -61,12 +65,12 @@ class HomeScreen extends Component {
                         }>
                             <Icon name="share" size={20} color='#313c8d' />
                         </TouchableOpacity>
-                        <View style={{ flexDirection: 'row' }}>
-                        <TouchableOpacity onPress ={this.props.addToFavoriteList}>
-                            <Icon name="heart" size={20} color='#cc0000' />
-                            </TouchableOpacity>
-                            <Text style={{ fontSize: 15, marginLeft: 10, color: '#000' }}>{item.likes}</Text>
-                        </View>
+                        <TouchableOpacity onPress ={(item) => this.onLikePressed(item)}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Icon name="heart" size={20} color='#cc0000' />
+                                <Text style={{ fontSize: 15, marginLeft: 10, color: '#000' }}>{item.likes}</Text>
+                            </View>
+                        </TouchableOpacity>
                         <View style={{ flexDirection: 'row' }}>
                             <Icon name="eye" size={20} color='#000' />
                             <Text style={{ fontSize: 15, marginLeft: 10, color: '#000' }}>{item.views}</Text>
@@ -105,7 +109,8 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
     const { appData, loading, error } = state.fetch
-    return { appData, loading, error }
+    const { items } = state.favList
+    return { appData, loading, error, items }
 }
 
 export default connect(mapStateToProps, { fetchingData, addToFavoriteList })(HomeScreen)

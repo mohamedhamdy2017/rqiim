@@ -71,22 +71,25 @@ class FavoriteScreen extends Component {
     }
     render(){
         return(
-            <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
+            <View style={{flex:1}}>
                 <Header style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#313c8d' }}>
                     <Title>القائمه المفضله</Title>
                 </Header>
+                {this.props.items? 
                 <FlatList
-                data ={this.props.favoriteList}
+                 data ={this.props.items}
                 renderItem ={this.renderItem}
                 keyExtractor={(item, index) => index.toString()}
-                />
+                /> 
+                    : null 
+                }
             </View>
         )
     }
 }
 
 const mapStateToProps = state => {
-    const {favoriteList} = state.favList;
-    return {favoriteList}
+    const {items} = state.favList;
+    return {items}
 }
-export default connect(mapStateToProps, {addToFavoriteList, removeFromFavoriteList}) (FavoriteScreen);
+export default connect(mapStateToProps, { removeFromFavoriteList}) (FavoriteScreen);
