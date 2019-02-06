@@ -7,24 +7,10 @@ export const fetchingData = () => {
     const response = await fetch('https://young-caverns-57308.herokuapp.com/')
     const result = await response.json()
     if(result) {
-        dispatch({type: FETCHING_SUCCESS, result})
-        console.log(result)
+        dispatch({type: FETCHING_SUCCESS, payload: result})
     } else {
-        console.log('failed')
+        dispatch({type: FETCHING_FAILED})
     }
-    
-   }
+   }  
 }
 
-//  const fetchingSuccess = (dispatch, result) => {
-//     dispatch ({
-//         type: FETCHING_SUCCESS,
-//         payload: result
-//     })
-// }
-
-//  const fetchingFailed = (dispatch) => {
-//     dispatch({
-//         type: FETCHING_FAILED,
-//     })
-// }

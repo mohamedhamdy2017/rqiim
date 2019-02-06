@@ -7,8 +7,10 @@ export default (state = INIT_STATE, action) => {
         
         case IS_FETCHING:
             return { ...state, loading: true}
+
         case FETCHING_SUCCESS : 
             return { ...state, appData: action.payload, loading: false, error: ''}
+            
         case FETCHING_FAILED :
             return { ...state, error: 'Loading Data Failed'}
         default:
