@@ -20,7 +20,7 @@ class HomeScreen extends Component {
 
 
     renderItem = ({ item }) => {
-        return (
+        return ( 
             <Card style={{ flex: 1, width: '100%', marginBottom: 10, borderWidth: .7, borderRadius: 8 }}>
                 <CardItem style={{ borderBottomWidth: .65, borderBottomColor: '#cdcdcd' }}>
                     <Body style={{ alignItems: 'flex-end' }}>
@@ -83,6 +83,7 @@ class HomeScreen extends Component {
     }
 
     render() {
+        
         return (
             <View style={{ flex: 1 }}>
                 <StatusBar backgroundColor='#313c8d' />

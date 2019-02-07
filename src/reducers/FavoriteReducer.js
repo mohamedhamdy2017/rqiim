@@ -9,22 +9,16 @@ export default (state = INIT_STATE, action) => {
     switch(action.type) {
 
         case ADD_TO_FAVORITE_LIST: 
-            return { ...state, 
-                items: state.items.concat(item => {
-                  return item.id === action.payload.id
-                })
-            }
+            return { ...state, items: [ ...state.items, action.payload ] }
 
         case REMOVE_FROM_FAVORITE_LIST:
             return {
                 ...state,
                 items: state.items.filter((item) => {
-                  return item.id !== action.payload.id
+                  return item.id !== action.item
             })
         }
                 
-            
-
         default:
             return state
     }
