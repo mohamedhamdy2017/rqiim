@@ -1,11 +1,18 @@
 import React , {Component } from 'react'
-import { View, FlatList } from 'react-native'
-import { Header, Title } from 'native-base'
+import { View, Text, FlatList, Image, TouchableOpacity, Linking, Share } from 'react-native'
+import { Header, Title, Card, CardItem, Body } from 'native-base'
 import { connect } from 'react-redux'
-import { removeFromFavoriteList} from '../actions'
+import { Avatar } from 'react-native-elements'
+import { removeFromFavoriteList, fetchingData } from '../actions'
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 
 
 class FavoriteScreen extends Component {
+    onRemove(id){
+        this.props.removeFromFavoriteList(id)
+    }
+    
     renderItem = ({ item }) => {
         return (
             <Card style={{ flex: 1, width: '100%', marginBottom: 10, borderWidth: .7, borderRadius: 8 }}>
@@ -47,14 +54,14 @@ class FavoriteScreen extends Component {
                     <Body style={{ alignItems: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>
                         <TouchableOpacity onPress={() =>
                             Share.share({
-                                title: item.title, message: item.link 
+                                message: `${item.title} ${item.link}`
                             }).then(() => console.log('Share Success'))
                         }>
-                            <Icon name="share" size={20} color='#313c8d' />
+                            <Icon name="share" size={20} color='#313c8d'/>
                         </TouchableOpacity>
                         <View style={{ flexDirection: 'row' }}>
-                        <TouchableOpacity onPress ={this.props.removeFromFavoriteList}>
-                            <Icon name="heart" size={20} color='#cc0000'  />
+                        <TouchableOpacity onPress = {(id) => this.onRemove(id)}>
+                            <Icon name="heart" size={20} color='#cc0000' />
                         </TouchableOpacity>
                             <Text style={{ fontSize: 15, marginLeft: 10, color: '#000' }}>{item.likes}</Text>
                         </View>
@@ -75,14 +82,13 @@ class FavoriteScreen extends Component {
                 <Header style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#313c8d' }}>
                     <Title>القائمه المفضله</Title>
                 </Header>
-                {this.props.items? 
-                <FlatList
-                 data ={this.props.items}
-                renderItem ={this.renderItem}
-                keyExtractor={(item, index) => index.toString()}
-                /> 
-                    : null 
-                }
+               {this.props.items?
+                    <FlatList
+                        data ={this.props.items}
+                        renderItem ={this.renderItem}
+                        keyExtractor={(item, index) => index.toString()}
+                    /> 
+                : null }
             </View>
         )
     }
@@ -92,4 +98,4 @@ const mapStateToProps = state => {
     const {items} = state.favList;
     return {items}
 }
-export default connect(mapStateToProps, { removeFromFavoriteList}) (FavoriteScreen);
+export default connect(mapStateToProps, { removeFromFavoriteList, fetchingData }) (FavoriteScreen);

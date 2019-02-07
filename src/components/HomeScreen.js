@@ -15,7 +15,7 @@ class HomeScreen extends Component {
     }
 
     onLikePressed(item){
-        this.props.addToFavoriteList(item)
+     this.props.addToFavoriteList(item)
     }
 
 
@@ -77,7 +77,6 @@ class HomeScreen extends Component {
                         </View>
                     </Body>
                 </CardItem>
-
             </Card>
 
         )
