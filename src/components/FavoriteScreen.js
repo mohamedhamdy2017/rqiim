@@ -17,7 +17,6 @@ class FavoriteScreen extends Component {
         try {
           const get = await AsyncStorage.getItem('Data');
           const getItem = JSON.parse(get)
-          console.log(getItem)
           return getItem;
         } catch (error) {
           console.log(error)
