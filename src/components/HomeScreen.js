@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, StatusBar, Image, TouchableOpacity, Linking, Share } from 'react-native'
+import { View, Text, FlatList, StatusBar, Image, TouchableOpacity, Linking, Share,AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchingData, addToFavoriteList } from '../actions'
 import { Card, CardItem, Body, Header, Title } from 'native-base'
@@ -16,8 +16,16 @@ class HomeScreen extends Component {
 
     onLikePressed(item){
      this.props.addToFavoriteList(item)
+        this.storeData(item)
     }
 
+    storeData = async (item) => {
+        try {
+          await AsyncStorage.setItem('Data', JSON.stringify(item));
+        } catch (error) {
+          console.log(error)
+        }
+      };
 
     renderItem = ({ item }) => {
         return ( 
@@ -60,14 +68,15 @@ class HomeScreen extends Component {
                     <Body style={{ alignItems: 'center', justifyContent: 'space-around', flexDirection: 'row' }}>
                         <TouchableOpacity onPress={() =>
                             Share.share({
-                                title: item.title, message: item.link 
+                                message: `${item.title} ${item.link}`
                             }).then(() => console.log('Share Success'))
                         }>
                             <Icon name="share" size={20} color='#313c8d' />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress ={(item) => this.onLikePressed(item)}>
+                       
+                        <TouchableOpacity onPress ={() => this.onLikePressed(item)}>
                             <View style={{ flexDirection: 'row' }}>
-                                <Icon name="heart" size={20} color='#cc0000' />
+                                <Icon name="heart" size={20} color='gray'/>
                                 <Text style={{ fontSize: 15, marginLeft: 10, color: '#000' }}>{item.likes}</Text>
                             </View>
                         </TouchableOpacity>
@@ -108,9 +117,9 @@ class HomeScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { appData, loading, error } = state.fetch
+    const { appData, loading, error,color } = state.fetch
     const { items } = state.favList
-    return { appData, loading, error, items }
+    return { appData, loading, error, color, items }
 }
 
 export default connect(mapStateToProps, { fetchingData, addToFavoriteList })(HomeScreen)

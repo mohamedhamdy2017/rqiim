@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, Image, TouchableOpacity, Linking, Share } from 'react-native'
+import { View, Text, FlatList, Image, TouchableOpacity, Linking, Share, AsyncStorage } from 'react-native'
 import { Header, Title, Card, CardItem, Body } from 'native-base'
 import { connect } from 'react-redux'
 import { Avatar } from 'react-native-elements'
@@ -9,12 +9,27 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 class FavoriteScreen extends Component {
-    onRemove(id) {
-        this.props.removeFromFavoriteList(id)
+    componentDidMount(){
+       this.retrieveData()
+    }
+
+     retrieveData = async () => {
+        try {
+          const get = await AsyncStorage.getItem('Data');
+          const getItem = JSON.parse(get)
+          console.log(getItem)
+          return getItem;
+        } catch (error) {
+          console.log(error)
+        }
+      };
+
+    onRemove() {
+        this.props.removeFromFavoriteList()
     }
 
     renderItem = ({ item }) => {
-        console.log(item)
+        
         return (
             <Card  style={{ flex: 1, width: '100%', marginBottom: 10, borderWidth: .7, borderRadius: 8 }}>
                 <CardItem style={{ borderBottomWidth: .65, borderBottomColor: '#cdcdcd' }}>
@@ -62,7 +77,7 @@ class FavoriteScreen extends Component {
                         </TouchableOpacity>
                         <View style={{ flexDirection: 'row' }}>
 
-                            <TouchableOpacity onPress={(id) => this.onRemove(id)}>
+                            <TouchableOpacity onPress={() => this.onRemove()}>
                                 <Icon name="heart" size={20} color='#cc0000' />
                             </TouchableOpacity>
                             <Text style={{ fontSize: 15, marginLeft: 10, color: '#000' }}>{item.likes}</Text>
@@ -79,7 +94,6 @@ class FavoriteScreen extends Component {
         )
     }
     render() {
-        console.log(this.props.items)
         return (
             <View style={{ flex: 1 }}>
                 <Header style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#313c8d' }}>
