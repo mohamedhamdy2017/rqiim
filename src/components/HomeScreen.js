@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, StatusBar, Image, TouchableOpacity, Linking, Share,AsyncStorage } from 'react-native'
+import { View, Text, FlatList, StatusBar, Image, TouchableOpacity, Linking, Share } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchingData, addToFavoriteList } from '../actions'
 import { Card, CardItem, Body, Header, Title } from 'native-base'
@@ -9,9 +9,6 @@ import Spinner from 'react-native-spinkit'
 
 
 class HomeScreen extends Component {
-    state={
-        col: ''
-    }
 
     componentDidMount() {
         this.props.fetchingData()
@@ -19,7 +16,6 @@ class HomeScreen extends Component {
 
     onLikePressed(item){
      this.props.addToFavoriteList(item)
-       
     }
 
     renderItem = ({ item }) => {
@@ -71,7 +67,7 @@ class HomeScreen extends Component {
                        
                         <TouchableOpacity onPress ={() => this.onLikePressed(item)}>
                             <View style={{ flexDirection: 'row' }}>
-                                <Icon name="heart" size={20} color={this.state.color? 'gray' : 'red'}/>
+                                <Icon name="heart" size={20} color='gray'/>
                                 <Text style={{ fontSize: 15, marginLeft: 10, color: '#000' }}>{item.likes}</Text>
                             </View>
                         </TouchableOpacity>

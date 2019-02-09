@@ -1,5 +1,4 @@
-import { ADD_TO_FAVORITE_LIST, REMOVE_FROM_FAVORITE_LIST, SAVA_DATA, RETRIVE_DATA } from '../actions/type'
-import { REHYDRATE } from 'redux-persist/es/constants'
+import { ADD_TO_FAVORITE_LIST, REMOVE_FROM_FAVORITE_LIST } from '../actions/type'
 
 const INIT_STATE = {
     items : [],
