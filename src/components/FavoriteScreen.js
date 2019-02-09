@@ -1,28 +1,15 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, Image, TouchableOpacity, Linking, Share, AsyncStorage } from 'react-native'
+import { View, Text, FlatList, Image, TouchableOpacity, Linking, Share } from 'react-native'
 import { Header, Title, Card, CardItem, Body } from 'native-base'
 import { connect } from 'react-redux'
 import { Avatar } from 'react-native-elements'
-import { removeFromFavoriteList } from '../actions'
+import { removeFromFavoriteList, retriveData } from '../actions'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 
 class FavoriteScreen extends Component {
-    componentDidMount(){
-       this.retrieveData()
-    }
-
-     retrieveData = async () => {
-        try {
-          const get = await AsyncStorage.getItem('Data');
-          const getItem = JSON.parse(get)
-          return getItem;
-        } catch (error) {
-          console.log(error)
-        }
-      };
-
+    
     onRemove() {
         this.props.removeFromFavoriteList()
     }
@@ -114,4 +101,4 @@ const mapStateToProps = state => {
     const { items } = state.favList;
     return { items }
 }
-export default connect(mapStateToProps, { removeFromFavoriteList })(FavoriteScreen);
+export default connect(mapStateToProps, { removeFromFavoriteList, retriveData })(FavoriteScreen);

@@ -1,10 +1,8 @@
-import { ADD_TO_FAVORITE_LIST, REMOVE_FROM_FAVORITE_LIST } from '../actions/type'
-
+import { ADD_TO_FAVORITE_LIST, REMOVE_FROM_FAVORITE_LIST, SAVA_DATA, RETRIVE_DATA } from '../actions/type'
+import { REHYDRATE } from 'redux-persist/es/constants'
 
 const INIT_STATE = {
     items : [],
-    storage: []
-   
 }
 
 export default (state = INIT_STATE, action) => {
@@ -20,6 +18,7 @@ export default (state = INIT_STATE, action) => {
                   return item.key !== index.key
             })
         }
+
 
         default:
             return state

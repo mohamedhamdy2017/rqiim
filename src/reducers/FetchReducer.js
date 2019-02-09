@@ -1,6 +1,6 @@
 import { IS_FETCHING, FETCHING_SUCCESS, FETCHING_FAILED } from '../actions/type'
 
-const INIT_STATE = { appData:[], loading: false, error: '' }
+const INIT_STATE = { appData:[], loading: false, error: ''  }
 
 export default (state = INIT_STATE, action) => {
     switch(action.type){

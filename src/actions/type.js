@@ -5,5 +5,6 @@ export const FETCHING_FAILED = 'FETCHING_FAILED'
 export const ADD_TO_FAVORITE_LIST = 'ADD_TO_FAVORITE_LIST'
 export const REMOVE_FROM_FAVORITE_LIST = 'REMOVE_FROM_FAVORITE_LIST'
 
-export const SAVE_DATA = 'SAVE_DATA'
+export const DATA = 'DATA'
+export const SAVA_DATA = 'SAVA_DATA'
 export const RETRIVE_DATA = 'RETRIVE_DATA'

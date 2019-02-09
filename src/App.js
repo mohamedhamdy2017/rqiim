@@ -8,24 +8,21 @@
  */
 
 import React, {Component} from 'react';
+
 import SplashScreen from 'react-native-splash-screen'
 
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import ReduxThunk from 'redux-thunk'
-import reducers from './reducers'
-
+import  {store} from './store'
 import MainNav from './screens/MainNav'
 
-
-
 export default class App extends Component {
+    
     componentDidMount() {
         SplashScreen.hide()
       }
   render() {
     return (
-        <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
+        <Provider store={store}>
             <MainNav/>
         </Provider>
     );

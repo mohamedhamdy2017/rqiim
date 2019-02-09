@@ -9,6 +9,9 @@ import Spinner from 'react-native-spinkit'
 
 
 class HomeScreen extends Component {
+    state={
+        col: ''
+    }
 
     componentDidMount() {
         this.props.fetchingData()
@@ -16,16 +19,8 @@ class HomeScreen extends Component {
 
     onLikePressed(item){
      this.props.addToFavoriteList(item)
-        this.storeData(item)
+       
     }
-
-    storeData = async (item) => {
-        try {
-          await AsyncStorage.setItem('Data', JSON.stringify(item));
-        } catch (error) {
-          console.log(error)
-        }
-      };
 
     renderItem = ({ item }) => {
         return ( 
@@ -76,12 +71,12 @@ class HomeScreen extends Component {
                        
                         <TouchableOpacity onPress ={() => this.onLikePressed(item)}>
                             <View style={{ flexDirection: 'row' }}>
-                                <Icon name="heart" size={20} color='gray'/>
+                                <Icon name="heart" size={20} color={this.state.color? 'gray' : 'red'}/>
                                 <Text style={{ fontSize: 15, marginLeft: 10, color: '#000' }}>{item.likes}</Text>
                             </View>
                         </TouchableOpacity>
                         <View style={{ flexDirection: 'row' }}>
-                            <Icon name="eye" size={20} color='#000' />
+                            <Icon name="eye" size={20} color='#000'/>
                             <Text style={{ fontSize: 15, marginLeft: 10, color: '#000' }}>{item.views}</Text>
                         </View>
                     </Body>
@@ -117,9 +112,9 @@ class HomeScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { appData, loading, error,color } = state.fetch
+    const { appData, loading, error } = state.fetch
     const { items } = state.favList
-    return { appData, loading, error, color, items }
+    return { appData, loading, error, items }
 }
 
 export default connect(mapStateToProps, { fetchingData, addToFavoriteList })(HomeScreen)
